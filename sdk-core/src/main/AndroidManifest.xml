@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.xee.sdk.core">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application>
+        <activity
+            android:name=".auth.AuthenticationActivity"/>
+        <activity
+            android:name=".auth.RegistrationActivity"/>
+    </application>
+
+</manifest>

@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'kotlin-android-extensions'
+
+def libraries = rootProject.ext.libraries
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        applicationId 'com.xee.sdk.app'
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField 'boolean', 'ENABLE_LOGS', 'true'
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+
+    flavorDimensions "env"
+    productFlavors {
+        prod {
+            dimension "env"
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs', '../../libs'
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
+configurations {
+    prodDebug
+    prodRelease
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support.constraint:constraint-layout:$libraries.constraintLayout"
+    implementation "com.android.support:appcompat-v7:$libraries.google"
+    implementation "com.android.support:design:$libraries.google"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation("com.afollestad.material-dialogs:core:$libraries.materialDialog") {
+        exclude group: 'com.android.support', module: 'support-v13'
+    }
+    compile project(':sdk-api')
+    compile project(':sdk-fleet')
+}

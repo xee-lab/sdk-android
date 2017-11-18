@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#474747</color>
+    <color name="colorPrimaryDark">#393939</color>
+    <color name="colorAccent">#a5c400</color>
+
+    <color name="textPrimaryDark">#474747</color>
+
+    <color name="activityBg">#ededed</color>
+    <color name="menuIcons">#ffffff</color>
+
+    <color name="recyclerViewHeaderBg">#dedede</color>
+    <color name="recyclerViewDivider">#ededed</color>
+    <color name="recyclerViewWebServiceTitle">@color/textPrimaryDark</color>
+
+    <color name="rippleNormalBg">#ffffff</color>
+    <color name="rippleBg">@color/colorAccent</color>
+    <color name="rippleDisableBg">#cccccc</color>
+
+    <color name="dialogTitleSuccess">#a5c400</color>
+    <color name="dialogTitleError">#ff4545</color>
+    <color name="dialogTitleInfo">#0095ff</color>
+
+    <color name="snackBarSuccess">#a5c400</color>
+    <color name="snackBarWarning">#e99f00</color>
+    <color name="snackBarError">#ff4545</color>
+    <color name="snackBarInfo">#0095ff</color>
+</resources>

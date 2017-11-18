@@ -1,0 +1,94 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'maven'
+
+group = project.sdk.groupId
+version = project.sdk.versionName
+
+androidExtensions {
+    experimental = true
+}
+
+kapt {
+    generateStubs = true
+}
+
+android {
+    compileSdkVersion project.sdk.compileSdkVersion
+    buildToolsVersion project.sdk.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.sdk.minSDK
+        targetSdkVersion project.sdk.targetSdkVersion
+        versionCode project.sdk.versionCode
+        versionName project.sdk.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+    flavorDimensions "environment"
+
+    productFlavors {
+        prod {
+            dimension "environment"
+            resValue "string", "ENV", "cloud"
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultPublishConfig "prodRelease"
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-android-extensions-runtime:$kotlin_version"
+
+    compile project(':sdk-core')
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = project.sdk.groupId
+            pom.artifactId = 'sdk-fleet'
+            pom.version = project.sdk.versionName
+            repository(url: "file://${System.env.HOME}/.m2/repository/")
+        }
+    }
+}
+
+evaluationDependsOn(':sdk-core')

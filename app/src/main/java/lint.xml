@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Ignore the UnusedResources issue for the given ids -->
+    <issue id="UnusedResources" severity="ignore">
+        <ignore path="*" />
+        <!--<ignore regexp="ga_trackingId|google_crash_reporting_api_key" />-->
+    </issue>
+
+    <issue id="all">
+        <ignore path="*" />
+    </issue>
+</lint>

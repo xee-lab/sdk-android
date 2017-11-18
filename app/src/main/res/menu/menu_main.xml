@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="xee.v4.MainActivity">
+
+    <item
+        android:id="@+id/action_disconnect"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_exit"
+        android:title="@string/menu_disconnect"
+        app:showAsAction="always"/>
+
+</menu>

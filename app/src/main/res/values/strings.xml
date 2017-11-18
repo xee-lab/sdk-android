@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Xee SDK V4</string>
+    <string name="menu_disconnect">Disconnect</string>
+    <string name="disconnect_success">Disconnected</string>
+    <string name="disconnect_error">Disconnection error</string>
+
+    <string name="authentication_success">Authentication success</string>
+    <string name="authentication_error">Authentication failed</string>
+    <string name="authentication_canceled">Authentication canceled</string>
+
+    <string name="registration_success">Registration success</string>
+    <string name="registration_canceled">Registration canceled</string>
+    <string name="registration_error">Registration error</string>
+
+    <string name="webservice_not_handled">Not handled yet!</string>
+
+    <string name="dialog_content_associate_xeeconnect">Please enter ID and PIN of your XeeCONNECT to associate</string>
+    <string name="dialog_content_dissociate_xeeconnect">Please enter ID of vehicle to dissociate</string>
+    <string name="dialog_hint_device_id">device id</string>
+    <string name="dialog_hint_device_pin">device pin</string>
+    <string name="dialog_hint_vehicle_id">vehicle id</string>
+
+    <string name="dialog_content_update_user">Please fill fields to update</string>
+    <string name="dialog_hint_update_user_firstName">first name</string>
+    <string name="dialog_hint_update_user_lastName">last name</string>
+
+    <string name="dialog_content_update_vehicle">Please fill fields to update</string>
+    <string name="dialog_hint_update_vehicle_name">name</string>
+    <string name="dialog_hint_update_vehicle_brand">brand</string>
+
+    <string name="dialog_content">Please fill fields below</string>
+    <string name="dialog_hint_id">id</string>
+</resources>

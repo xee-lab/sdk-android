@@ -33,7 +33,7 @@ data class Trip(@SerializedName("id") val id: String,
                 @SerializedName("endLocation") val endLocation: Location?,
                 @SerializedName("vehicleId") val vehicleId: String?,
                 @SerializedName("createdAt") val createdAt: Date?,
-                @SerializedName("updateAt") val updateAt: Date?) : Parcelable {
+                @SerializedName("updatedAt") val updatedAt: Date?) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -56,7 +56,7 @@ data class Trip(@SerializedName("id") val id: String,
         writeParcelable(endLocation, 0)
         writeString(vehicleId)
         writeSerializable(createdAt)
-        writeSerializable(updateAt)
+        writeSerializable(updatedAt)
     }
 
     companion object {

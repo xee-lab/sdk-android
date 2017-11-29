@@ -26,11 +26,11 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Loan(@SerializedName("id") var id: String,
-                @SerializedName("startedAt") var startedAt: Date?,
-                @SerializedName("endedAt") var endedAt: Date?,
-                @SerializedName("vehicle") var vehicle: Vehicle?,
-                @SerializedName("driver") var driver: User?) : Parcelable {
+data class Loan @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                          @SerializedName("startedAt") var startedAt: Date? = null,
+                                          @SerializedName("endedAt") var endedAt: Date? = null,
+                                          @SerializedName("vehicle") var vehicle: Vehicle? = null,
+                                          @SerializedName("driver") var driver: User? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

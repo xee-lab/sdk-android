@@ -26,14 +26,14 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Trip(@SerializedName("id") val id: String,
-                @SerializedName("mileage") val mileage: Mileage?,
-                @SerializedName("usedTime") val usedTime: UsedTime?,
-                @SerializedName("startLocation") val startLocation: Location?,
-                @SerializedName("endLocation") val endLocation: Location?,
-                @SerializedName("vehicleId") val vehicleId: String?,
-                @SerializedName("createdAt") val createdAt: Date?,
-                @SerializedName("updatedAt") val updatedAt: Date?) : Parcelable {
+data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                          @SerializedName("mileage") var mileage: Mileage? = null,
+                                          @SerializedName("usedTime") var usedTime: UsedTime? = null,
+                                          @SerializedName("startLocation") var startLocation: Location? = null,
+                                          @SerializedName("endLocation") var endLocation: Location? = null,
+                                          @SerializedName("vehicleId") var vehicleId: String? = null,
+                                          @SerializedName("createdAt") var createdAt: Date? = null,
+                                          @SerializedName("updatedAt") var updatedAt: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -73,9 +73,9 @@ data class Trip(@SerializedName("id") val id: String,
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Mileage(@SerializedName("type") val type: String,
-                   @SerializedName("value") val value: Double,
-                   @SerializedName("unit") val unit: String) : Parcelable {
+data class Mileage @JvmOverloads constructor(@SerializedName("type") var type: String? = null,
+                                             @SerializedName("value") var value: Double = 0.0,
+                                             @SerializedName("unit") var unit: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -105,9 +105,9 @@ data class Mileage(@SerializedName("type") val type: String,
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class UsedTime(@SerializedName("type") val type: String,
-                    @SerializedName("value") val value: Double,
-                    @SerializedName("unit") val unit: String) : Parcelable {
+data class UsedTime @JvmOverloads constructor(@SerializedName("type") var type: String? = null,
+                                              @SerializedName("value") var value: Double = 0.0,
+                                              @SerializedName("unit") var unit: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

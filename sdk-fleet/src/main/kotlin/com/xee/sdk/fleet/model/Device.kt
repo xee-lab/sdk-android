@@ -25,9 +25,9 @@ import com.google.gson.annotations.SerializedName
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Device(@SerializedName("id") val id: String,
-                  @SerializedName("vehicleId") val vehicleId: String?,
-                  @SerializedName("brand") val brand: String?) : Parcelable {
+data class Device @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                            @SerializedName("vehicleId") var vehicleId: String? = null,
+                                            @SerializedName("brand") var brand: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

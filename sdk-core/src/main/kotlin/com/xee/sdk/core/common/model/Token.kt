@@ -25,11 +25,11 @@ import com.google.gson.annotations.SerializedName
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Token(@SerializedName("access_token") var accessToken: String,
-                 @SerializedName("refresh_token") var refreshToken: String,
-                 @SerializedName("expires_in") var expiresIn: Long,
-                 @SerializedName("scope") var scope: String,
-                 @SerializedName("token_type") var tokenType: String) : Parcelable {
+data class Token @JvmOverloads constructor(@SerializedName("access_token") var accessToken: String,
+                                           @SerializedName("refresh_token") var refreshToken: String = "",
+                                           @SerializedName("expires_in") var expiresIn: Long = 0,
+                                           @SerializedName("scope") var scope: String = "",
+                                           @SerializedName("token_type") var tokenType: String = "") : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

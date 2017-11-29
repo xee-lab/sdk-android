@@ -25,26 +25,26 @@ import com.google.gson.annotations.SerializedName
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class User(@SerializedName("id") var id: String,
-                @SerializedName("firstName") var firstName: String?,
-                @SerializedName("lastName") var lastName: String?,
-                @SerializedName("gender") var gender: Gender?,
-                @SerializedName("role") var role: Role?,
-                @SerializedName("loan") var loan: Loan?,
-                @SerializedName("tags") var tags: List<Tag>?) : Parcelable {
+data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                          @SerializedName("firstName") var firstName: String,
+                                          @SerializedName("lastName") var lastName: String,
+                                          @SerializedName("gender") var gender: Gender = Gender.UNKNOWN,
+                                          @SerializedName("role") var role: Role? = null,
+                                          @SerializedName("loan") var loan: Loan? = null,
+                                          @SerializedName("tags") var tags: List<Tag>? = null) : Parcelable {
     enum class Role {
         OWNER, SUPERVISOR, DRIVER, SUPPORT
     }
 
     enum class Gender {
-        MALE, FEMALE
+        MALE, FEMALE, UNKNOWN
     }
 
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readValue(Int::class.java.classLoader)?.let { Gender.values()[it as Int] },
+            Gender.values()[source.readInt()],
             source.readValue(Int::class.java.classLoader)?.let { Role.values()[it as Int] },
             source.readParcelable<Loan>(Loan::class.java.classLoader),
             source.createTypedArrayList(Tag.CREATOR)

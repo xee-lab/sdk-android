@@ -26,9 +26,9 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Signal(@SerializedName("name") val name: String,
-                  @SerializedName("value") val value: Double,
-                  @SerializedName("date") val date: Date?) : Parcelable {
+data class Signal @JvmOverloads constructor(@SerializedName("name") var name: String,
+                                            @SerializedName("value") var value: Double,
+                                            @SerializedName("date") var date: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

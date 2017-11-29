@@ -26,12 +26,12 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Status(@SerializedName("vehicleId") val vehicleId: String?,
-                  @SerializedName("location") val location: Location?,
-                  @SerializedName("accelerometer") val accelerometer: Accelerometer?,
-                  @SerializedName("createdAt") val createdAt: Date?,
-                  @SerializedName("updatedAt") val updatedAt: Date?,
-                  @SerializedName("signals") val signals: List<Signal>?) : Parcelable {
+data class Status @JvmOverloads constructor(@SerializedName("vehicleId") var vehicleId: String? = null,
+                                            @SerializedName("location") var location: Location? = null,
+                                            @SerializedName("accelerometer") var accelerometer: Accelerometer? = null,
+                                            @SerializedName("createdAt") var createdAt: Date? = null,
+                                            @SerializedName("updatedAt") var updatedAt: Date? = null,
+                                            @SerializedName("signals") var signals: List<Signal>? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

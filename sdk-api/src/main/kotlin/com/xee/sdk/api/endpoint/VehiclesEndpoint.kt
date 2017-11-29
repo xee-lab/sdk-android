@@ -70,7 +70,7 @@ interface VehiclesEndpoint {
     @GET(Routes.VEHICLE_DEVICE_DATA)
     fun getVehicleDeviceData(@Path(Parameters.VEHICLE_ID) vehicleId:String, @QueryMap parameters:Map<String, @JvmSuppressWildcards Any>): Observable<List<Any>>
 
-    @PATCH(Routes.VEHICLE)
+    @PUT(Routes.VEHICLE)
     fun updateVehicle(@Path(Parameters.VEHICLE_ID) vehicleId:String, @Body vehicleToUpdate: Vehicle):Observable<Vehicle>
 
     @POST(Routes.VEHICLE_PRIVACIES)

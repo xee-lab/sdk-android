@@ -26,11 +26,11 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Location(@SerializedName("latitude") val latitude: Double,
-                    @SerializedName("longitude") val longitude: Double,
-                    @SerializedName("altitude") val altitude: Double,
-                    @SerializedName("heading") val heading: Double,
-                    @SerializedName("date") val date: Date?) : Parcelable {
+data class Location @JvmOverloads constructor(@SerializedName("latitude") var latitude: Double = 0.0,
+                                              @SerializedName("longitude") var longitude: Double = 0.0,
+                                              @SerializedName("altitude") var altitude: Double = 0.0,
+                                              @SerializedName("heading") var heading: Double = 0.0,
+                                              @SerializedName("date") var date: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readDouble(),

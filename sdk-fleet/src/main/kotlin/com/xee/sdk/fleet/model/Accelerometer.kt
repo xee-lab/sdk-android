@@ -26,10 +26,10 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Accelerometer(@SerializedName("x") val x: Double,
-                         @SerializedName("y") val y: Double,
-                         @SerializedName("z") val z: Double,
-                         @SerializedName("date") val date: Date?) : Parcelable {
+data class Accelerometer @JvmOverloads constructor(@SerializedName("x") var x: Double = 0.0,
+                                                   @SerializedName("y") var y: Double = 0.0,
+                                                   @SerializedName("z") var z: Double = 0.0,
+                                                   @SerializedName("date") var date: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readDouble(),

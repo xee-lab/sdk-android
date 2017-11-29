@@ -26,16 +26,16 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Vehicle(@SerializedName("id") var id: String,
-                   @SerializedName("userId") val userId: String?,
-                   @SerializedName("name") var name: String?,
-                   @SerializedName("brand") var brand: String?,
-                   @SerializedName("model") var model: String?,
-                   @SerializedName("kType") var year: Int?,
-                   @SerializedName("licensePlate") var licensePlate: String?,
-                   @SerializedName("device") val device: Device?,
-                   @SerializedName("createdAt") val createdAt: Date,
-                   @SerializedName("updatedAt") val updatedAt: Date) : Parcelable {
+data class Vehicle @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                             @SerializedName("userId") var userId: String? = null,
+                                             @SerializedName("name") var name: String,
+                                             @SerializedName("brand") var brand: String? = null,
+                                             @SerializedName("model") var model: String? = null,
+                                             @SerializedName("kType") var kType: String? = null,
+                                             @SerializedName("licensePlate") var licensePlate: String? = null,
+                                             @SerializedName("device") var device: Device? = null,
+                                             @SerializedName("createdAt") var createdAt: Date? = null,
+                                             @SerializedName("updatedAt") var updatedAt: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -43,11 +43,11 @@ data class Vehicle(@SerializedName("id") var id: String,
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readValue(Int::class.java.classLoader) as Int?,
+            source.readString(),
             source.readString(),
             source.readParcelable<Device>(Device::class.java.classLoader),
-            source.readSerializable() as Date,
-            source.readSerializable() as Date
+            source.readSerializable() as Date?,
+            source.readSerializable() as Date?
     )
 
     override fun describeContents() = 0
@@ -58,7 +58,7 @@ data class Vehicle(@SerializedName("id") var id: String,
         writeString(name)
         writeString(brand)
         writeString(model)
-        writeValue(year)
+        writeString(kType)
         writeString(licensePlate)
         writeParcelable(device, 0)
         writeSerializable(createdAt)
@@ -79,13 +79,13 @@ data class Vehicle(@SerializedName("id") var id: String,
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Privacy(@SerializedName("id") val id: String,
-                   @SerializedName("startedAt") val startedAt: Date,
-                   @SerializedName("endedAt") val endedAt: Date?) : Parcelable {
+data class Privacy @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                             @SerializedName("startedAt") var startedAt: Date? = null,
+                                             @SerializedName("endedAt") var endedAt: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readSerializable() as Date,
+            source.readSerializable() as Date?,
             source.readSerializable() as Date?
     )
 

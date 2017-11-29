@@ -28,12 +28,10 @@ import retrofit2.HttpException
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Error(@SerializedName("error") var error: String?,
-                 @SerializedName("error_description") var errorDescription: String?,
-                 @SerializedName("error_details") var errorDetails: List<ErrorDetails>?,
-                 @SerializedName("code") var code: Int?) : Throwable(), Parcelable {
-
-    constructor(error:String, errorDescription: String) : this(error, errorDescription, null, null)
+data class Error @JvmOverloads constructor(@SerializedName("error") var error: String? = null,
+                                           @SerializedName("error_description") var errorDescription: String? = null,
+                                           @SerializedName("error_details") var errorDetails: List<ErrorDetails>? = null,
+                                           @SerializedName("code") var code: Int? = null) : Throwable(), Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -65,9 +63,9 @@ data class Error(@SerializedName("error") var error: String?,
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class ErrorDetails(@SerializedName("field") var field: String?,
-                        @SerializedName("constraint") var constraint: String?,
-                        @SerializedName("description") var description: String?) : Parcelable {
+data class ErrorDetails(@SerializedName("field") var field: String? = null,
+                        @SerializedName("constraint") var constraint: String? = null,
+                        @SerializedName("description") var description: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

@@ -25,10 +25,10 @@ import com.google.gson.annotations.SerializedName
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Tag(@SerializedName("id") var id: String,
-               @SerializedName("name") var name: String?,
-               @SerializedName("color") var color: String?,
-               @SerializedName("icon") var icon: String?) : Parcelable {
+data class Tag @JvmOverloads constructor(@SerializedName("id") var id: String = "",
+                                         @SerializedName("name") var name: String? = null,
+                                         @SerializedName("color") var color: String? = null,
+                                         @SerializedName("icon") var icon: String? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

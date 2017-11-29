@@ -26,18 +26,18 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Authorization(@SerializedName("id") val id: String,
-                         @SerializedName("userId") val userId: String,
-                         @SerializedName("client") val client: Client,
-                         @SerializedName("scopes") val scopes: List<Scope>,
-                         @SerializedName("createdAt") val createdAt: Date) : Parcelable {
+data class Authorization @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                                   @SerializedName("userId") var userId: String? = null,
+                                                   @SerializedName("client") var client: Client? = null,
+                                                   @SerializedName("scopes") var scopes: List<Scope>? = null,
+                                                   @SerializedName("createdAt") var createdAt: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
             source.readParcelable<Client>(Client::class.java.classLoader),
             source.createTypedArrayList(Scope.CREATOR),
-            source.readSerializable() as Date
+            source.readSerializable() as Date?
     )
 
     override fun describeContents() = 0
@@ -64,10 +64,11 @@ data class Authorization(@SerializedName("id") val id: String,
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Client(@SerializedName("id") val id: String,
-                  @SerializedName("name") val name: String,
-                  @SerializedName("description") val description: String?,
-                  @SerializedName("icon") val icon: String?) : Parcelable {
+data class Client @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                            @SerializedName("name") var name: String? = null,
+                                            @SerializedName("description") var description: String? = null,
+                                            @SerializedName("icon") var icon: String? = null) : Parcelable {
+
     constructor(source: Parcel) : this(
             source.readString(),
             source.readString(),
@@ -98,9 +99,9 @@ data class Client(@SerializedName("id") val id: String,
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Scope(@SerializedName("id") val id: String,
-                 @SerializedName("identifier") val identifier: String,
-                 @SerializedName("visibility") val visibility: Visibility) : Parcelable {
+data class Scope @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                           @SerializedName("identifier") var identifier: String = "",
+                                           @SerializedName("visibility") var visibility: Visibility = Visibility.PUBLIC) : Parcelable {
     enum class Visibility {
         PROTECTED, PRIVATE, PUBLIC
     }

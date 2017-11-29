@@ -26,16 +26,16 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Vehicle(@SerializedName("id") var id: String,
-                   @SerializedName("name") var name: String?,
-                   @SerializedName("brand") var brand: String?,
-                   @SerializedName("energy") var energy: Energy?,
-                   @SerializedName("licensePlate") var licensePlate: String?,
-                   @SerializedName("device") val device: Device?,
-                   @SerializedName("loan") val loan: Loan?,
-                   @SerializedName("createdAt") val createdAt: Date?,
-                   @SerializedName("updatedAt") val updatedAt: Date?,
-                   @SerializedName("tags") var tags: List<Tag>?) : Parcelable {
+data class Vehicle @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                             @SerializedName("name") var name: String,
+                                             @SerializedName("brand") var brand: String? = null,
+                                             @SerializedName("energy") var energy: Energy? = Energy.UNDEFINED,
+                                             @SerializedName("licensePlate") var licensePlate: String? = null,
+                                             @SerializedName("device") var device: Device? = null,
+                                             @SerializedName("loan") var loan: Loan? = null,
+                                             @SerializedName("createdAt") var createdAt: Date? = null,
+                                             @SerializedName("updatedAt") var updatedAt: Date? = null,
+                                             @SerializedName("tags") var tags: List<Tag>? = null) : Parcelable {
 
     enum class Energy {
         UNDEFINED, GASOLINE, DIESEL, LPG, ELECTRIC
@@ -83,13 +83,13 @@ data class Vehicle(@SerializedName("id") var id: String,
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Privacy(@SerializedName("id") val id: String,
-                   @SerializedName("startedAt") val startedAt: Date,
-                   @SerializedName("endedAt") val endedAt: Date?) : Parcelable {
+data class Privacy @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                             @SerializedName("startedAt") var startedAt: Date? = null,
+                                             @SerializedName("endedAt") var endedAt: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readSerializable() as Date,
+            source.readSerializable() as Date?,
             source.readSerializable() as Date?
     )
 

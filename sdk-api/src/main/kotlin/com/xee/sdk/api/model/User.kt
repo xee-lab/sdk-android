@@ -26,16 +26,15 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class User(@SerializedName("id") var id: String,
-                @SerializedName("firstName") var firstName: String?,
-                @SerializedName("lastName") var lastName: String?,
-                @SerializedName("email") var email: String?,
-                @SerializedName("gender") var gender: Gender?,
-                @SerializedName("createdAt") var createdAt: Date?,
-                @SerializedName("updatedAt") var updatedAt: Date?) : Parcelable {
-
+data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                          @SerializedName("firstName") var firstName: String,
+                                          @SerializedName("lastName") var lastName: String,
+                                          @SerializedName("email") var email: String,
+                                          @SerializedName("gender") var gender: Gender = Gender.UNKNOWN,
+                                          @SerializedName("createdAt") var createdAt: Date? = null,
+                                          @SerializedName("updatedAt") var updatedAt: Date? = null) : Parcelable {
     enum class Gender {
-        MALE, FEMALE
+        MALE, FEMALE, UNKNOWN
     }
 
     constructor(source: Parcel) : this(
@@ -43,7 +42,7 @@ data class User(@SerializedName("id") var id: String,
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readValue(Int::class.java.classLoader)?.let { Gender.values()[it as Int] },
+            Gender.values()[source.readInt()],
             source.readSerializable() as Date?,
             source.readSerializable() as Date?
     )
@@ -55,7 +54,7 @@ data class User(@SerializedName("id") var id: String,
         writeString(firstName)
         writeString(lastName)
         writeString(email)
-        writeValue(gender?.ordinal)
+        writeInt(gender.ordinal)
         writeSerializable(createdAt)
         writeSerializable(updatedAt)
     }

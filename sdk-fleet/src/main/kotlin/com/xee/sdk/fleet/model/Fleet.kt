@@ -26,12 +26,12 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Fleet(@SerializedName("id") var id: String,
-                 @SerializedName("name") var name: String?,
-                 @SerializedName("company") var company: String?,
-                 @SerializedName("active") var active: Boolean,
-                 @SerializedName("joinedAt") var joinedAt: Date?,
-                 @SerializedName("role") var role: User.Role?) : Parcelable {
+data class Fleet @JvmOverloads constructor(@SerializedName("id") var id: String,
+                                           @SerializedName("name") var name: String? = null,
+                                           @SerializedName("company") var company: String? = null,
+                                           @SerializedName("active") var active: Boolean = false,
+                                           @SerializedName("joinedAt") var joinedAt: Date? = null,
+                                           @SerializedName("role") var role: User.Role? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

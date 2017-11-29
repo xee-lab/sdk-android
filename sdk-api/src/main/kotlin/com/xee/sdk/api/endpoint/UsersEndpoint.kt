@@ -54,7 +54,7 @@ interface UsersEndpoint {
     @GET(Routes.VEHICLES)
     fun getUserVehicles(@Path(Parameters.USER_ID) userId: String): Observable<List<Vehicle>>
 
-    @PATCH(Routes.USER)
+    @PUT(Routes.USER)
     fun updateUser(@Path(Parameters.USER_ID) userId: String, @Body userToUpdate: User): Observable<User>
 
     @POST(Routes.ASSOCIATE_VEHICLE)

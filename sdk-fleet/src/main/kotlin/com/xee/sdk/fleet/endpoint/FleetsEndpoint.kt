@@ -16,10 +16,7 @@
 
 package com.xee.sdk.fleet.endpoint
 
-import com.xee.sdk.fleet.model.Fleet
-import com.xee.sdk.fleet.model.Loan
-import com.xee.sdk.fleet.model.User
-import com.xee.sdk.fleet.model.Vehicle
+import com.xee.sdk.fleet.model.*
 import io.reactivex.Completable
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -39,6 +36,7 @@ interface FleetsEndpoint {
         const val FLEET_VEHICLE_LOANS = "fleets/{${Parameters.FLEET_ID}}/vehicles/{${Parameters.VEHICLE_ID}}/loans"
         const val FLEET_DRIVER_LOANS = "fleets/{${Parameters.FLEET_ID}}/drivers/{${Parameters.DRIVER_ID}}/loans"
         const val FLEET_END_LOAN = "fleets/{${Parameters.FLEET_ID}}/loans/{${Parameters.LOAN_ID}}"
+        const val FLEET_STATUS = "fleets/{${Parameters.FLEET_ID}}/status"
     }
 
     object Parameters {
@@ -52,23 +50,26 @@ interface FleetsEndpoint {
     fun getMyFleets(): Observable<List<Fleet>>
 
     @GET(Routes.FLEET_DRIVERS)
-    fun getFleetDrivers(@Path(Parameters.FLEET_ID) fleetId:String): Observable<List<User>>
+    fun getFleetDrivers(@Path(Parameters.FLEET_ID) fleetId: String): Observable<List<User>>
 
     @GET(Routes.FLEET_DRIVERS_ME)
-    fun getDriver(@Path(Parameters.FLEET_ID) fleetId:String): Observable<User>
+    fun getDriver(@Path(Parameters.FLEET_ID) fleetId: String): Observable<User>
 
     @GET(Routes.FLEET_VEHICLES)
-    fun getFleetVehicles(@Path(Parameters.FLEET_ID) fleetId:String): Observable<List<Vehicle>>
+    fun getFleetVehicles(@Path(Parameters.FLEET_ID) fleetId: String): Observable<List<Vehicle>>
 
     @GET(Routes.FLEET_VEHICLE_LOANS)
-    fun getVehicleLoans(@Path(Parameters.FLEET_ID) fleetId:String, @Path(Parameters.VEHICLE_ID) vehicleId: String, @QueryMap parameters:Map<String, @JvmSuppressWildcards Any>): Observable<List<Loan>>
+    fun getVehicleLoans(@Path(Parameters.FLEET_ID) fleetId: String, @Path(Parameters.VEHICLE_ID) vehicleId: String, @QueryMap parameters: Map<String, @JvmSuppressWildcards Any>): Observable<List<Loan>>
 
     @GET(Routes.FLEET_DRIVER_LOANS)
-    fun getDriverLoans(@Path(Parameters.FLEET_ID) fleetId:String, @Path(Parameters.DRIVER_ID) driverId: String, @QueryMap parameters:Map<String, @JvmSuppressWildcards Any>): Observable<List<Loan>>
+    fun getDriverLoans(@Path(Parameters.FLEET_ID) fleetId: String, @Path(Parameters.DRIVER_ID) driverId: String, @QueryMap parameters: Map<String, @JvmSuppressWildcards Any>): Observable<List<Loan>>
 
     @POST(Routes.FLEET_VEHICLE_LOANS)
-    fun startLoan(@Path(Parameters.FLEET_ID) fleetId:String, @Path(Parameters.VEHICLE_ID) vehicleId: String, @Body body: Map<String, @JvmSuppressWildcards Any>): Observable<Loan> // todo: or Completable ???
+    fun startLoan(@Path(Parameters.FLEET_ID) fleetId: String, @Path(Parameters.VEHICLE_ID) vehicleId: String, @Body body: Map<String, @JvmSuppressWildcards Any>): Observable<Loan> // todo: or Completable ???
 
     @PUT(Routes.FLEET_END_LOAN)
-    fun endLoan(@Path(Parameters.FLEET_ID) fleetId:String, @Path(Parameters.LOAN_ID) loanId:String):Completable
+    fun endLoan(@Path(Parameters.FLEET_ID) fleetId: String, @Path(Parameters.LOAN_ID) loanId: String): Completable
+
+    @GET(Routes.FLEET_STATUS)
+    fun getStatus(@Path(Parameters.FLEET_ID) fleetId: String): Observable<FleetStatus>
 }

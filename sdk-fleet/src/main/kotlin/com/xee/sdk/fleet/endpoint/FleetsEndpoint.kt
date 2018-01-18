@@ -37,6 +37,7 @@ interface FleetsEndpoint {
         const val FLEET_DRIVER_LOANS = "fleets/{${Parameters.FLEET_ID}}/drivers/{${Parameters.DRIVER_ID}}/loans"
         const val FLEET_END_LOAN = "fleets/{${Parameters.FLEET_ID}}/loans/{${Parameters.LOAN_ID}}"
         const val FLEET_STATUS = "fleets/{${Parameters.FLEET_ID}}/status"
+        const val FLEET_TAGS = "fleets/{${Parameters.FLEET_ID}}/tags"
     }
 
     object Parameters {
@@ -72,4 +73,7 @@ interface FleetsEndpoint {
 
     @GET(Routes.FLEET_STATUS)
     fun getStatus(@Path(Parameters.FLEET_ID) fleetId: String): Observable<FleetStatus>
+
+    @GET(Routes.FLEET_TAGS)
+    fun getTags(@Path(Parameters.FLEET_ID) fleetId: String): Observable<List<Tag>>
 }

@@ -76,4 +76,7 @@ interface FleetsEndpoint {
 
     @GET(Routes.FLEET_TAGS)
     fun getTags(@Path(Parameters.FLEET_ID) fleetId: String): Observable<List<Tag>>
+
+    @POST(Routes.FLEET_TAGS)
+    fun createTag(@Path(Parameters.FLEET_ID) fleetId: String, @Body body: Map<String, @JvmSuppressWildcards Any>): Observable<Tag>
 }

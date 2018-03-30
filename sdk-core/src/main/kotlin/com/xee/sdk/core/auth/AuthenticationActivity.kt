@@ -16,6 +16,7 @@
 
 package com.xee.sdk.core.auth
 
+import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Context
@@ -33,6 +34,9 @@ import com.xee.sdk.core.auth.endpoint.AuthEndpoint
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 import java.util.*
+import android.webkit.WebSettings
+
+
 
 /**
  * Authentication [Activity] to authenticate user with OAuth2
@@ -135,6 +139,7 @@ class AuthenticationActivity : Activity() {
         }
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -152,6 +157,8 @@ class AuthenticationActivity : Activity() {
         authenticationWebView = WebView(this)
         authenticationWebView.webViewClient = mmAuthenticationWebViewClient
         authenticationWebView.clearCache(true)
+        val webSettings = authenticationWebView.settings
+        webSettings.javaScriptEnabled = true
         disableRememberPasswordDialog(authenticationWebView)
 
         // Show the WebView on screen

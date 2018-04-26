@@ -28,7 +28,7 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Stats @JvmOverloads constructor(@SerializedName("distance") var name: Double?,
+data class Stats @JvmOverloads constructor(@SerializedName("distance") var distance: Double?,
                                            @SerializedName("duration") var date: Long? = null) : Parcelable {
     constructor(source: Parcel) : this(
             source.readValue(Double::class.java.classLoader) as Double?,
@@ -38,7 +38,7 @@ data class Stats @JvmOverloads constructor(@SerializedName("distance") var name:
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeValue(name)
+        writeValue(distance)
         writeValue(date)
     }
 

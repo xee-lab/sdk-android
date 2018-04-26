@@ -234,7 +234,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
     //endregion
 }
 
-private fun Completable.composeSubAndObs(): Completable = compose({
+fun Completable.composeSubAndObs(): Completable = compose({
     it.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 })
 

@@ -31,9 +31,11 @@ data class Vehicle @JvmOverloads constructor(@SerializedName("id") var id: Strin
                                              @SerializedName("brand") var brand: String? = null,
                                              @SerializedName("energy") var energy: Energy? = Energy.UNDEFINED,
                                              @SerializedName("licensePlate") var licensePlate: String? = null,
+                                             @SerializedName("model") var model: String,
                                              @SerializedName("device") var device: Device? = null,
                                              @SerializedName("loan") var loan: Loan? = null,
                                              @SerializedName("createdAt") var createdAt: Date? = null,
+                                             @SerializedName("firstEntryIntoService") var firstEntryIntoService: Date? = null,
                                              @SerializedName("updatedAt") var updatedAt: Date? = null,
                                              @SerializedName("tags") var tags: List<Tag>? = null) : Parcelable {
 
@@ -47,8 +49,10 @@ data class Vehicle @JvmOverloads constructor(@SerializedName("id") var id: Strin
             source.readString(),
             source.readValue(Int::class.java.classLoader)?.let { Energy.values()[it as Int] },
             source.readString(),
+            source.readString(),
             source.readParcelable<Device>(Device::class.java.classLoader),
             source.readParcelable<Loan>(Loan::class.java.classLoader),
+            source.readSerializable() as Date?,
             source.readSerializable() as Date?,
             source.readSerializable() as Date?,
             source.createTypedArrayList(Tag.CREATOR)
@@ -62,10 +66,12 @@ data class Vehicle @JvmOverloads constructor(@SerializedName("id") var id: Strin
         writeString(brand)
         writeValue(energy?.ordinal)
         writeString(licensePlate)
+        writeString(model)
         writeParcelable(device, 0)
         writeParcelable(loan, 0)
         writeSerializable(createdAt)
         writeSerializable(updatedAt)
+        writeSerializable(firstEntryIntoService)
         writeTypedList(tags)
     }
 

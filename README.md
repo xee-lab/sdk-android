@@ -96,6 +96,7 @@ If you need to use our api, just only use the `sdk-api` *(no need to add the `sd
 
 ```groovy
 compile 'com.github.xee-lab.sdk-android:sdk-api:4.1.3'
+
 ```
 
 ## Setup

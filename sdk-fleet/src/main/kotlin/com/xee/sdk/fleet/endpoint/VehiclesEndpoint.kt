@@ -54,5 +54,5 @@ interface VehiclesEndpoint {
     fun disablePrivacy(@Path(Parameters.PRIVACY_ID) privacyId:String): Observable<Privacy>
 
     @GET(Routes.VEHICLE_TRIPS)
-    fun getVehicleTrips(@Path(Parameters.VEHICLE_ID) vehicleId:String): Observable<List<Trip>>
+    fun getVehicleTrips(@Path(Parameters.VEHICLE_ID) vehicleId:String, @QueryMap parameters: Map<String, @JvmSuppressWildcards Any>): Observable<List<Trip>>
 }

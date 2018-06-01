@@ -144,6 +144,13 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
             handleObservableError(fleetsEndpoint?.getFleetVehicles(fleetId))
 
     /**
+     * Returns trips corresponding to specified vehicle id
+     * @param vehicleId the uuid of the [Vehicle]
+     */
+    fun getVehicleTrips(vehicleId: String): Observable<List<Trip>> =
+            handleObservableError(vehiclesEndpoint?.getVehicleTrips(vehicleId))
+			
+    /**
      * Returns loans of a vehicle of the fleet
      * @param fleetId the uuid of the [Fleet]
      * @param vehicleId the uuid of the [Vehicle]

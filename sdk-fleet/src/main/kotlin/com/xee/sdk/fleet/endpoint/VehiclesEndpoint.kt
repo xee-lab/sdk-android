@@ -18,6 +18,7 @@ package com.xee.sdk.fleet.endpoint
 
 import com.xee.sdk.fleet.model.Privacy
 import com.xee.sdk.fleet.model.Status
+import com.xee.sdk.fleet.model.Trip
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -30,6 +31,7 @@ interface VehiclesEndpoint {
 
     object Routes {
         const val VEHICLE_PRIVACIES = "vehicles/{${Parameters.VEHICLE_ID}}/privacies"
+        const val VEHICLE_TRIPS = "vehicles/{${Parameters.VEHICLE_ID}}/trips"
         const val VEHICLE_STATUS = "vehicles/{${Parameters.VEHICLE_ID}}/status"
         const val VEHICLE_DISABLE_PRIVACY = "privacies/{${Parameters.PRIVACY_ID}}"
     }
@@ -50,4 +52,7 @@ interface VehiclesEndpoint {
 
     @PUT(Routes.VEHICLE_DISABLE_PRIVACY)
     fun disablePrivacy(@Path(Parameters.PRIVACY_ID) privacyId:String): Observable<Privacy>
+
+    @GET(Routes.VEHICLE_TRIPS)
+    fun getVehicleTrips(@Path(Parameters.VEHICLE_ID) vehicleId:String): Observable<List<Trip>>
 }

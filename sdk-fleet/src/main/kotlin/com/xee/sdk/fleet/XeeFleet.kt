@@ -148,9 +148,13 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
      * @param vehicleId the uuid of the [Vehicle]
      * @param optionalParameters an optional [Map] of parameters
      */
-    fun getVehicleTrips(vehicleId: String, optionalParameters: Map<String, Any>): Observable<List<Trip>> =
-            handleObservableError(vehiclesEndpoint?.getVehicleTrips(vehicleId, optionalParameters))
-			
+    @JvmOverloads
+    fun getVehicleTrips(vehicleId: String, from: Date? = null, to: Date? = null): Observable<List<Trip>> {
+        val optionalParameters = mutableMapOf<String, Any>()
+        if (from != null) optionalParameters[Params.FROM] = DATE_FORMATTER.format(from)
+        if (to != null) optionalParameters[Params.TO] = DATE_FORMATTER.format(to)
+        return handleObservableError(vehiclesEndpoint?.getVehicleTrips(vehicleId, optionalParameters))
+    }
     /**
      * Returns loans of a vehicle of the fleet
      * @param fleetId the uuid of the [Fleet]

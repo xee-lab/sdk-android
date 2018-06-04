@@ -35,6 +35,8 @@ interface TripsEndpoint {
         const val TRIP = "trips/{${Parameters.TRIP_ID}}"
         const val TRIP_SIGNALS = "trips/{${Parameters.TRIP_ID}}/signals"
         const val TRIP_LOCATIONS = "trips/{${Parameters.TRIP_ID}}/locations"
+        const val TRIP_BEHAVIORS = "trips/{${Parameters.TRIP_ID }}"
+
     }
 
     object Parameters {
@@ -52,5 +54,7 @@ interface TripsEndpoint {
     @GET(Routes.TRIP_LOCATIONS)
     fun getTripLocations(@Path(Parameters.TRIP_ID) tripId:String, @QueryMap parameters:Map<String, @JvmSuppressWildcards Any>): Observable<List<Location>>
 
+    @GET(Routes.TRIP_BEHAVIORS)
+    fun getTripBehaviors(@Path(Parameters.TRIP_ID) tripId:String):Observable<Trip>
 
     }

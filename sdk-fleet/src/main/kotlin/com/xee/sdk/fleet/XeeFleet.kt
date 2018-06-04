@@ -35,6 +35,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Path
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -149,6 +150,13 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
      * Returns trip corresponding to specified trip id
      * @param tripId the uuid of the [Trip]
      */
+    fun getTripBehaviors(tripId:String):Observable<Trip> =
+            handleObservableError(tripsEndpoint?.getTripBehaviors(tripId))
+
+    /**
+     * Returns trip corresponding to specified trip id
+     * @param tripId the uuid of the [Trip]
+     */
     fun getTrip(tripId: String): Observable<Trip> =
             handleObservableError(tripsEndpoint?.getTrip(tripId))
 
@@ -201,6 +209,7 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
         return handleObservableError(tripsEndpoint?.getTripLocations(tripId, optionalParameters))
     }
     //endregion
+
 
 
     /**

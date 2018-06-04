@@ -25,6 +25,7 @@ import com.xee.sdk.core.common.interceptor.LogRequestInterceptor
 import com.xee.sdk.core.common.interceptor.ApiInterceptor
 import com.xee.sdk.core.common.model.buildThrowableError
 import com.xee.sdk.fleet.endpoint.FleetsEndpoint
+import com.xee.sdk.fleet.endpoint.TripsEndpoint
 import com.xee.sdk.fleet.endpoint.VehiclesEndpoint
 import com.xee.sdk.fleet.model.*
 import io.reactivex.Completable
@@ -73,6 +74,7 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
     private var xeeEnv: XeeEnv = environment
     private var fleetsEndpoint: FleetsEndpoint? = null
     private var vehiclesEndpoint: VehiclesEndpoint? = null
+    private var tripsEndpoint: TripsEndpoint? = null
 
     init {
         ENABLE_LOG = enableLog
@@ -144,10 +146,70 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
             handleObservableError(fleetsEndpoint?.getFleetVehicles(fleetId))
 
     /**
+     * Returns trip corresponding to specified trip id
+     * @param tripId the uuid of the [Trip]
+     */
+    fun getTrip(tripId: String): Observable<Trip> =
+            handleObservableError(tripsEndpoint?.getTrip(tripId))
+
+    /**
+     * Returns trips signals by redirecting to the signals api
+     * @param tripId the uuid of the [Trip]
+     * @param optionalParameters an optional [Map] of parameters
+     */
+    fun getTripSignals(tripId: String, optionalParameters: Map<String, Any>): Observable<List<Signal>> =
+            handleObservableError(tripsEndpoint?.getTripSignals(tripId, optionalParameters))
+
+    /**
+     * Returns trips signals by redirecting to the signals api
+     * @param tripId the uuid of the [Trip]
+     * @param from the beginning date of the search
+     * @param to the ending date of the search
+     * @param limit the limit of the search
+     */
+    @JvmOverloads
+    fun getTripSignals(tripId: String, from: Date? = null, to: Date? = null, signals: String? = null, limit: Int? = null): Observable<List<Signal>> {
+        val optionalParameters = mutableMapOf<String, Any>()
+        if (from != null) optionalParameters[Params.FROM] = DATE_FORMATTER.format(from)
+        if (to != null) optionalParameters[Params.TO] = DATE_FORMATTER.format(to)
+        if (limit != null) optionalParameters[Params.LIMIT] = limit
+        if (signals != null) optionalParameters[Params.SIGNALS] = signals
+        return handleObservableError(tripsEndpoint?.getTripSignals(tripId, optionalParameters))
+    }
+
+    /**
+     * Returns trips locations by redirecting to the signals api
+     * @param tripId the uuid of the [Trip]
+     * @param optionalParameters an optional [Map] of parameters
+     */
+    fun getTripLocations(tripId: String, optionalParameters: Map<String, Any>): Observable<List<Location>> =
+            handleObservableError(tripsEndpoint?.getTripLocations(tripId, optionalParameters))
+
+    /**
+     * Returns locations signals by redirecting to the signals api
+     * @param tripId the uuid of the [Trip]
+     * @param from the beginning date of the search
+     * @param to the ending date of the search
+     * @param limit the limit of the search
+     */
+    @JvmOverloads
+    fun getTripLocations(tripId: String, from: Date? = null, to: Date? = null, limit: Int? = null): Observable<List<Location>> {
+        val optionalParameters = mutableMapOf<String, Any>()
+        if (from != null) optionalParameters[Params.FROM] = DATE_FORMATTER.format(from)
+        if (to != null) optionalParameters[Params.TO] = DATE_FORMATTER.format(to)
+        if (limit != null) optionalParameters[Params.LIMIT] = limit
+        return handleObservableError(tripsEndpoint?.getTripLocations(tripId, optionalParameters))
+    }
+    //endregion
+
+
+    /**
      * Returns trips corresponding to specified vehicle id
      * @param vehicleId the uuid of the [Vehicle]
      * @param optionalParameters an optional [Map] of parameters
      */
+
+
     @JvmOverloads
     fun getVehicleTrips(vehicleId: String, from: Date? = null, to: Date? = null): Observable<List<Trip>> {
         val optionalParameters = mutableMapOf<String, Any>()

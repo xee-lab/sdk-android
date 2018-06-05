@@ -35,6 +35,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Path
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -150,6 +151,13 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
      * Returns trip corresponding to specified trip id
      * @param tripId the uuid of the [Trip]
      */
+    fun getTripBehaviors(tripId:String):Observable<Trip> =
+            handleObservableError(tripsEndpoint?.getTripBehaviors(tripId))
+
+    /**
+     * Returns trip corresponding to specified trip id
+     * @param tripId the uuid of the [Trip]
+     */
     fun getTrip(tripId: String): Observable<Trip> =
             handleObservableError(tripsEndpoint?.getTrip(tripId))
 
@@ -201,16 +209,12 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
         if (limit != null) optionalParameters[Params.LIMIT] = limit
         return handleObservableError(tripsEndpoint?.getTripLocations(tripId, optionalParameters))
     }
-    //endregion
-
 
     /**
      * Returns trips corresponding to specified vehicle id
      * @param vehicleId the uuid of the [Vehicle]
      * @param optionalParameters an optional [Map] of parameters
      */
-
-
     @JvmOverloads
     fun getVehicleTrips(vehicleId: String, from: Date? = null, to: Date? = null): Observable<List<Trip>> {
         val optionalParameters = mutableMapOf<String, Any>()
@@ -218,6 +222,7 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
         if (to != null) optionalParameters[Params.TO] = DATE_FORMATTER.format(to)
         return handleObservableError(vehiclesEndpoint?.getVehicleTrips(vehicleId, optionalParameters))
     }
+
     /**
      * Returns loans of a vehicle of the fleet
      * @param fleetId the uuid of the [Fleet]

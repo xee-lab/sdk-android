@@ -23,6 +23,7 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
+import java.util.*
 
 /**
  * List of [Trip] endpoints
@@ -52,5 +53,6 @@ interface TripsEndpoint {
     @GET(Routes.TRIP_LOCATIONS)
     fun getTripLocations(@Path(Parameters.TRIP_ID) tripId:String, @QueryMap parameters:Map<String, @JvmSuppressWildcards Any>): Observable<List<Location>>
 
-
-    }
+    @GET(Routes.TRIP_LOCATIONS)
+    fun getTripLocations(tripId: String, from: Date? = null, to: Date? = null, limit: Int? = null): Observable<List<Location>>
+}

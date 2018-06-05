@@ -120,7 +120,7 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
      */
     fun isLogged(): Boolean = XeeAuth.logged
 
-    //region [USER]
+    //region [FLEET]
     /**
      * Get fleets of the current user authenticated
      */
@@ -148,7 +148,56 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
             handleObservableError(fleetsEndpoint?.getFleetVehicles(fleetId))
 
     /**
-     * Returns trip corresponding to specified trip id
+     * Returns loans of a driver of the fleet
+     * @param fleetId the uuid of the [Fleet]
+     * @param driverId the uuid of the [User]
+     * @param optionalParameters an optional [Map] of parameters
+     */
+    fun getDriverLoans(fleetId: String, driverId:String, optionalParameters: Map<String, Any>):Observable<List<Loan>> =
+            handleObservableError(fleetsEndpoint?.getDriverLoans(fleetId, driverId, optionalParameters))
+
+    /**
+     * Returns loans of a driver of the fleet
+     * @param fleetId the uuid of the [Fleet]
+     * @param driverId the uuid of the [User]
+     * @param from the beginning date of the search
+     * @param to the ending date of the search
+     * @param limit the limit of the search
+     */
+    @JvmOverloads
+    fun getDriverLoans(fleetId: String, driverId: String, from: Date? = null, to: Date? = null, limit: Int? = null): Observable<List<Loan>> {
+        val optionalParameters = mutableMapOf<String, Any>()
+        if(from != null) optionalParameters[Params.FROM] = DATE_FORMATTER.format(from)
+        if(to != null) optionalParameters[Params.TO] = DATE_FORMATTER.format(to)
+        if(limit != null) optionalParameters[Params.LIMIT] = limit
+        return handleObservableError(fleetsEndpoint?.getDriverLoans(fleetId, driverId, optionalParameters))
+    }
+
+    /**
+     * Start a loan of a vehicle
+     * @param fleetId the uuid of the [Fleet]
+     * @param vehicleId the uuid of the [Vehicle]
+     * @param driverId the uuid of the [User]
+     */
+    fun startLoan(fleetId: String, vehicleId: String, driverId: String):Observable<Loan> {
+        val bodyMap = mutableMapOf<String, Any>()
+        bodyMap["userId"] = driverId
+        return handleObservableError(fleetsEndpoint?.startLoan(fleetId, vehicleId, bodyMap))
+    }
+
+    /**
+     * Stop a loan of a vehicle
+     * @param fleetId the uuid of the [Fleet]
+     * @param loanId the uuid of the [Loan]
+     */
+    fun endLoan(fleetId: String, loanId:String):Completable =
+            handleCompletableError(fleetsEndpoint?.endLoan(fleetId, loanId))
+
+    //endregion
+
+    //region [TRIPS]
+    /**
+     * Returns trip behaviors corresponding to specified trip id
      * @param tripId the uuid of the [Trip]
      */
     fun getTripBehaviors(tripId:String):Observable<Trip> =
@@ -210,6 +259,9 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
         return handleObservableError(tripsEndpoint?.getTripLocations(tripId, optionalParameters))
     }
 
+    //endregion
+
+    //region [VEHICLE]
     /**
      * Returns trips corresponding to specified vehicle id
      * @param vehicleId the uuid of the [Vehicle]
@@ -249,55 +301,6 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
         return handleObservableError(fleetsEndpoint?.getVehicleLoans(fleetId, vehicleId, optionalParameters))
     }
 
-    /**
-     * Returns loans of a driver of the fleet
-     * @param fleetId the uuid of the [Fleet]
-     * @param driverId the uuid of the [User]
-     * @param optionalParameters an optional [Map] of parameters
-     */
-    fun getDriverLoans(fleetId: String, driverId:String, optionalParameters: Map<String, Any>):Observable<List<Loan>> =
-            handleObservableError(fleetsEndpoint?.getDriverLoans(fleetId, driverId, optionalParameters))
-
-    /**
-     * Returns loans of a driver of the fleet
-     * @param fleetId the uuid of the [Fleet]
-     * @param driverId the uuid of the [User]
-     * @param from the beginning date of the search
-     * @param to the ending date of the search
-     * @param limit the limit of the search
-     */
-    @JvmOverloads
-    fun getDriverLoans(fleetId: String, driverId: String, from: Date? = null, to: Date? = null, limit: Int? = null): Observable<List<Loan>> {
-        val optionalParameters = mutableMapOf<String, Any>()
-        if(from != null) optionalParameters[Params.FROM] = DATE_FORMATTER.format(from)
-        if(to != null) optionalParameters[Params.TO] = DATE_FORMATTER.format(to)
-        if(limit != null) optionalParameters[Params.LIMIT] = limit
-        return handleObservableError(fleetsEndpoint?.getDriverLoans(fleetId, driverId, optionalParameters))
-    }
-
-    /**
-     * Start a loan of a vehicle
-     * @param fleetId the uuid of the [Fleet]
-     * @param vehicleId the uuid of the [Vehicle]
-     * @param driverId the uuid of the [User]
-     */
-    fun startLoan(fleetId: String, vehicleId: String, driverId: String):Observable<Loan> {
-        val bodyMap = mutableMapOf<String, Any>()
-        bodyMap["userId"] = driverId
-        return handleObservableError(fleetsEndpoint?.startLoan(fleetId, vehicleId, bodyMap))
-    }
-
-    /**
-     * Stop a loan of a vehicle
-     * @param fleetId the uuid of the [Fleet]
-     * @param loanId the uuid of the [Loan]
-     */
-    fun endLoan(fleetId: String, loanId:String):Completable =
-            handleCompletableError(fleetsEndpoint?.endLoan(fleetId, loanId))
-
-    //endregion
-
-    //region [VEHICLE]
     /**
      * Returns the vehicle status of the vehicle
      * @param vehicleId the uuid of the [Vehicle]

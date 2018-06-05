@@ -37,14 +37,11 @@ interface TripsEndpoint {
         const val TRIP_SIGNALS = "trips/{${Parameters.TRIP_ID}}/signals"
         const val TRIP_LOCATIONS = "trips/{${Parameters.TRIP_ID}}/locations"
         const val TRIP_BEHAVIORS = "trips/{${Parameters.TRIP_ID }}"
-
     }
 
     object Parameters {
         const val TRIP_ID = "tripId"
     }
-
-
 
     @GET(Routes.TRIP)
     fun getTrip(@Path(Parameters.TRIP_ID) tripId:String): Observable<Trip>
@@ -57,5 +54,4 @@ interface TripsEndpoint {
 
     @GET(Routes.TRIP_BEHAVIORS)
     fun getTripBehaviors(@Path(Parameters.TRIP_ID) tripId:String):Observable<Trip>
-
-    }
+}

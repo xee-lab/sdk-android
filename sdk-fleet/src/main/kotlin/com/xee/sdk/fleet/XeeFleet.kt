@@ -111,6 +111,7 @@ class XeeFleet @JvmOverloads constructor(environment: XeeEnv, private val enable
 
         fleetsEndpoint = apiRetrofit.create<FleetsEndpoint>(FleetsEndpoint::class.java)
         vehiclesEndpoint = apiRetrofit.create<VehiclesEndpoint>(VehiclesEndpoint::class.java)
+        tripsEndpoint = apiRetrofit.create<TripsEndpoint>(TripsEndpoint::class.java)
     }
 
     /**

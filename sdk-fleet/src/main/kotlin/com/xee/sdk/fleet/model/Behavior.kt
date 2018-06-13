@@ -12,7 +12,6 @@ import kotlin.collections.ArrayList
  * @since 4.0.0
  */
 data class Behavior @JvmOverloads constructor(@SerializedName("id") var id: String,
-                                          @SerializedName("reasons") var reasons: ArrayList<String>? = null,
                                           @SerializedName("type") var type: String? = null,
                                           @SerializedName("value") var value: Double = 0.0,
                                           @SerializedName("startDate") var startDate: Date? = null,
@@ -22,7 +21,6 @@ data class Behavior @JvmOverloads constructor(@SerializedName("id") var id: Stri
 
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readArrayList(String::class.java.classLoader) as ArrayList<String>?,
             source.readString(),
             source.readDouble(),
             source.readSerializable() as Date?,
@@ -35,7 +33,6 @@ data class Behavior @JvmOverloads constructor(@SerializedName("id") var id: Stri
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
-        writeList(reasons)
         writeString(type)
         writeDouble(value)
         writeSerializable(startDate)

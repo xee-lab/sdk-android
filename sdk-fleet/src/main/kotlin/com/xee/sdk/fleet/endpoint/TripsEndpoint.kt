@@ -36,7 +36,7 @@ interface TripsEndpoint {
         const val TRIP = "trips/{${Parameters.TRIP_ID}}"
         const val TRIP_SIGNALS = "trips/{${Parameters.TRIP_ID}}/signals"
         const val TRIP_LOCATIONS = "trips/{${Parameters.TRIP_ID}}/locations"
-        const val TRIP_BEHAVIORS = "trips/{${Parameters.TRIP_ID }}"
+        const val TRIP_BEHAVIORS = "trips/{${Parameters.TRIP_ID }}/scoring"
     }
 
     object Parameters {

@@ -32,7 +32,8 @@ data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
                                           @SerializedName("endLocation") var endLocation: Location? = null,
                                           @SerializedName("vehicleId") var vehicleId: String? = null,
                                           @SerializedName("createdAt") var createdAt: Date? = null,
-                                          @SerializedName("updatedAt") var updatedAt: Date? = null) : Parcelable {
+                                          @SerializedName("updatedAt") var updatedAt: Date? = null,
+                                          @SerializedName("behaviors") var behaviors: List<Behavior>? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),
@@ -41,7 +42,8 @@ data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
             source.readParcelable<Location>(Location::class.java.classLoader),
             source.readString(),
             source.readSerializable() as Date?,
-            source.readSerializable() as Date?
+            source.readSerializable() as Date?,
+            source.createTypedArrayList(Behavior.CREATOR)
     )
 
     override fun describeContents() = 0
@@ -54,6 +56,7 @@ data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
         writeString(vehicleId)
         writeSerializable(createdAt)
         writeSerializable(updatedAt)
+        writeTypedList(behaviors)
     }
 
     companion object {

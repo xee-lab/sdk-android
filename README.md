@@ -81,21 +81,21 @@ Then just add each module your need to the dependencies in the **build.gradle** 
 
 ```gradle
 dependencies {
-	compile 'com.github.xee-lab.sdk-android:sdk-core:4.1.12'
-	compile 'com.github.xee-lab.sdk-android:sdk-api:4.1.12'
+	compile 'com.github.xee-lab.sdk-android:sdk-core:4.1.14'
+	compile 'com.github.xee-lab.sdk-android:sdk-api:4.1.14'
 }
 ```
 
 If you just need to sign in with Xee, you can just use:
 
 ```groovy
-compile 'com.github.xee-lab.sdk-android:sdk-core:4.1.12'
+compile 'com.github.xee-lab.sdk-android:sdk-core:4.1.14'
 ```
 
 If you need to use our api, just only use the `sdk-api` *(no need to add the `sdk-core` line because it's a direct dependency of `sdk-api`)*
 
 ```groovy
-compile 'com.github.xee-lab.sdk-android:sdk-api:4.1.12'
+compile 'com.github.xee-lab.sdk-android:sdk-api:4.1.14'
 
 
 ```

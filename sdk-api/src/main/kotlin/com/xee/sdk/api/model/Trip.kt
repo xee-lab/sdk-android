@@ -27,7 +27,6 @@ import java.util.*
  * @since 4.0.0
  */
 data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
-                                          @SerializedName("score") var score: Double = 0.0,
                                           @SerializedName("stats") var stats: Stats? = null,
                                           @SerializedName("startLocation") var startLocation: Location? = null,
                                           @SerializedName("endLocation") var endLocation: Location? = null,
@@ -37,7 +36,6 @@ data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
 
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readDouble(),
             source.readParcelable<Stats>(Stats::class.java.classLoader),
             source.readParcelable<Location>(Location::class.java.classLoader),
             source.readParcelable<Location>(Location::class.java.classLoader),
@@ -50,7 +48,6 @@ data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
-        writeDouble(score)
         writeParcelable(stats, 0)
         writeParcelable(startLocation, 0)
         writeParcelable(endLocation, 0)

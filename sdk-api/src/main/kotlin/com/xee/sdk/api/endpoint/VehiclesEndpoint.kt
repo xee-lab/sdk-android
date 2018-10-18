@@ -31,7 +31,7 @@ interface VehiclesEndpoint {
     object Routes {
         const val VEHICLE = "vehicles/{${Parameters.VEHICLE_ID}}"
         const val VEHICLE_PRIVACIES = "vehicles/{${Parameters.VEHICLE_ID}}/privacies"
-        const val VEHICLE_TRIPS = "vehicles/{${Parameters.VEHICLE_ID}}/scoring"
+        const val VEHICLE_TRIPS = "vehicles/{${Parameters.VEHICLE_ID}}/trips"
         const val VEHICLE_SIGNALS = "vehicles/{${Parameters.VEHICLE_ID}}/signals2"
         const val VEHICLE_STATUS = "vehicles/{${Parameters.VEHICLE_ID}}/status"
         const val VEHICLE_LOCATIONS = "vehicles/{${Parameters.VEHICLE_ID}}/locations"

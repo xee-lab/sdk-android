@@ -30,6 +30,9 @@ data class Location @JvmOverloads constructor(@SerializedName("latitude") var la
                                               @SerializedName("longitude") var longitude: Double = 0.0,
                                               @SerializedName("altitude") var altitude: Double = 0.0,
                                               @SerializedName("heading") var heading: Double = 0.0,
+                                              @SerializedName("street") var street: String? = null,
+                                              @SerializedName("city") var city: String? = null,
+                                              @SerializedName("country") var country: String? = null,
                                               @SerializedName("date") var date: Date? = null) : Parcelable {
 
     constructor(source: Parcel) : this(
@@ -37,6 +40,9 @@ data class Location @JvmOverloads constructor(@SerializedName("latitude") var la
             source.readDouble(),
             source.readDouble(),
             source.readDouble(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
             source.readSerializable() as Date?
     )
 
@@ -47,6 +53,9 @@ data class Location @JvmOverloads constructor(@SerializedName("latitude") var la
         writeDouble(longitude)
         writeDouble(altitude)
         writeDouble(heading)
+        writeString(street)
+        writeString(city)
+        writeString(country)
         writeSerializable(date)
     }
 

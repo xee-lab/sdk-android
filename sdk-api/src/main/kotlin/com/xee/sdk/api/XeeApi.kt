@@ -50,7 +50,7 @@ class XeeApi @JvmOverloads constructor(environment: XeeEnv, private val enableLo
 
     companion object {
         const val TAG = "XeeApi"
-        const val ROUTE_BASE = "https://%s.xee.com/v4/"
+        const val ROUTE_BASE = "https://fleet.rezo.loco.red/"
         const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         const val DATE_FORMAT_WITH_MS = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 

@@ -26,37 +26,66 @@ import java.util.*
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class Trip @JvmOverloads constructor(@SerializedName("id") var id: String,
-                                          @SerializedName("score") var score: Double = 0.0,
-                                          @SerializedName("stats") var stats: Stats? = null,
-                                          @SerializedName("startLocation") var startLocation: Location? = null,
-                                          @SerializedName("endLocation") var endLocation: Location? = null,
-                                          @SerializedName("vehicleId") var vehicleId: String? = null,
-                                          @SerializedName("createdAt") var createdAt: Date? = null,
-                                          @SerializedName("updatedAt") var updatedAt: Date? = null) : Parcelable {
+data class Trip @JvmOverloads constructor (
+        @SerializedName("id") val id: String,
+        @SerializedName("vehicleId") val vehicleId: String? = null,
+        @SerializedName("startDate") val startDate: Date? = null,
+        @SerializedName("endDate") val endDate: Date? = null,
+        @SerializedName("humanUsedTime") val humanUsedTime: String? = null,
+        @SerializedName("duration") val duration: Long? = null, // in seconds
+        @SerializedName("distance") val distance: Double? = null, // in KM
+        @SerializedName("score") private var score: Double? = null,
+        @SerializedName("startLocation") val startLocation: TripLocation? = null,
+        @SerializedName("endLocation") val endLocation: TripLocation? = null,
+        @SerializedName("locations") private var locations: List<Location>? = null,
+        @SerializedName("behaviors") val behaviors: List<Behavior>? = null) : Parcelable {
+
+    fun getLocations(): List<Location>? {
+        return locations
+    }
+
+    fun setLocations(locations: List<Location>?) {
+        this.locations = locations
+    }
+
+    fun getScore(): Double? {
+        return score
+    }
+
+    fun setScore(score: Double?) {
+        this.score = score
+    }
 
     constructor(source: Parcel) : this(
             source.readString(),
-            source.readDouble(),
-            source.readParcelable<Stats>(Stats::class.java.classLoader),
-            source.readParcelable<Location>(Location::class.java.classLoader),
-            source.readParcelable<Location>(Location::class.java.classLoader),
             source.readString(),
             source.readSerializable() as Date?,
-            source.readSerializable() as Date?
+            source.readSerializable() as Date?,
+            source.readString(),
+            source.readValue(Long::class.java.classLoader) as Long?,
+            source.readValue(Double::class.java.classLoader) as Double?,
+            source.readValue(Double::class.java.classLoader) as Double?,
+            source.readParcelable<TripLocation>(TripLocation::class.java.classLoader),
+            source.readParcelable<TripLocation>(TripLocation::class.java.classLoader),
+            source.createTypedArrayList(Location.CREATOR),
+            source.createTypedArrayList(Behavior.CREATOR)
     )
 
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
         writeString(id)
-        writeDouble(score)
-        writeParcelable(stats, 0)
+        writeString(vehicleId)
+        writeSerializable(startDate)
+        writeSerializable(endDate)
+        writeString(humanUsedTime)
+        writeValue(duration)
+        writeValue(distance)
+        writeValue(score)
         writeParcelable(startLocation, 0)
         writeParcelable(endLocation, 0)
-        writeString(vehicleId)
-        writeSerializable(createdAt)
-        writeSerializable(updatedAt)
+        writeTypedList(locations)
+        writeTypedList(behaviors)
     }
 
     companion object {

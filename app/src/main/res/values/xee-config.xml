@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- this is the xee config file you must set for running sample with your credentials -->
-    <string name="client_env" translatable="false">api</string>
+    <string name="client_env" translatable="false">api.xee.com/V4</string>
     <string name="client_id" translatable="false"></string>
     <string name="client_secret" translatable="false"></string>
 

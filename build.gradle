@@ -41,7 +41,7 @@ allprojects {
     project.ext {
         sdk = [
                 groupId          : "com.xee.sdk",
-                versionName      : "4.1.25-alpha-5",
+                versionName      : "4.1.25-alpha-6",
                 versionCode      : 8,
 
                 buildToolsVersion: "26.0.2",

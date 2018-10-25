@@ -116,7 +116,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
 
         // Build the retrofit interface and the Auth service
         val authRetrofit = Retrofit.Builder()
-                .baseUrl(String.format(Locale.FRANCE, ROUTE_BASE, env.environment))
+                .baseUrl(String.format(Locale.FRANCE, ROUTE_BASE, env.environmentApi))
                 .client(authClientBuilder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(CONVERTER_FACTORY)
@@ -151,7 +151,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
                             })
                 }
             }
-            xeeEnv.context.startActivity(AuthenticationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environment))
+            xeeEnv.context.startActivity(AuthenticationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environmentApi))
         } else {
             logged = true
             connectionCallback.onSuccess()
@@ -189,7 +189,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
                         })
             }
         }
-        xeeEnv.context.startActivity(RegistrationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environment))
+        xeeEnv.context.startActivity(RegistrationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environmentApi))
     }
 
     /**

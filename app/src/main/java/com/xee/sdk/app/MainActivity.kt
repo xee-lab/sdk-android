@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                 .scopes(scopes.toList())
                 .build()
 
-        val xeeEnv = XeeEnv(this, oAuth2Client, getString(R.string.client_env), getString(R.string.client_env))
+        val xeeEnv = XeeEnv(this, oAuth2Client, getString(R.string.client_env))
         xeeAuth = XeeAuth(xeeEnv, BuildConfig.ENABLE_LOGS)
         xeeApi = XeeApi(xeeEnv, BuildConfig.ENABLE_LOGS)
         xeeFleet = XeeFleet(xeeEnv, BuildConfig.ENABLE_LOGS)

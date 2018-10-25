@@ -24,7 +24,7 @@ import com.xee.sdk.core.auth.OAuth2Client
  * @author Julien Cholin
  * @since 4.0.0
  */
-data class XeeEnv(val context: Context, val oAuthClient: OAuth2Client, val connectTimeout: Long, val readTimeout: Long, val environment: String) {
+data class XeeEnv(val context: Context, val oAuthClient: OAuth2Client, val connectTimeout: Long, val readTimeout: Long, val environment: String, val environmentApi: String) {
 
     var tokenStorage: TokenStorage? = TokenStorage[context]
 
@@ -36,14 +36,17 @@ data class XeeEnv(val context: Context, val oAuthClient: OAuth2Client, val conne
     }
 
     constructor(context: Context, oAuthClient: OAuth2Client) :
-            this(context = context, oAuthClient = oAuthClient, connectTimeout = TIMEOUT, readTimeout = TIMEOUT, environment = ENVIRONMENT)
+            this(context = context, oAuthClient = oAuthClient, connectTimeout = TIMEOUT, readTimeout = TIMEOUT, environment = ENVIRONMENT, environmentApi = ENVIRONMENT)
 
     constructor(context: Context, oAuthClient: OAuth2Client, environment: String) :
-            this(context = context, oAuthClient = oAuthClient, connectTimeout = TIMEOUT, readTimeout = TIMEOUT, environment = environment)
+            this(context = context, oAuthClient = oAuthClient, connectTimeout = TIMEOUT, readTimeout = TIMEOUT, environment = environment, environmentApi = environment)
+
+    constructor(context: Context, oAuthClient: OAuth2Client, environment: String, environmentApi: String) :
+            this(context = context, oAuthClient = oAuthClient, connectTimeout = TIMEOUT, readTimeout = TIMEOUT, environment = environment, environmentApi = environmentApi)
 
     constructor(context: Context, oAuthClient: OAuth2Client, timeout: Long) :
-            this(context = context, oAuthClient = oAuthClient, connectTimeout = timeout, readTimeout = timeout, environment = ENVIRONMENT)
+            this(context = context, oAuthClient = oAuthClient, connectTimeout = timeout, readTimeout = timeout, environment = ENVIRONMENT, environmentApi = ENVIRONMENT)
 
     constructor(context: Context, oAuthClient: OAuth2Client, connectTimeout: Long, readTimeout: Long) :
-            this(context = context, oAuthClient = oAuthClient, connectTimeout = connectTimeout, readTimeout = readTimeout, environment = ENVIRONMENT)
+            this(context = context, oAuthClient = oAuthClient, connectTimeout = connectTimeout, readTimeout = readTimeout, environment = ENVIRONMENT, environmentApi = ENVIRONMENT)
 }

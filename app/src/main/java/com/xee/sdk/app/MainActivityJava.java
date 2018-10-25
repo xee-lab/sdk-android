@@ -126,7 +126,7 @@ public class MainActivityJava extends AppCompatActivity {
                                       .scopes(Arrays.asList(getResources().getStringArray(R.array.scopes)))
                                       .build();
 
-        XeeEnv xeeEnv = new XeeEnv(this, oAuthClient, getString(R.string.client_env), getString(R.string.client_env));
+        XeeEnv xeeEnv = new XeeEnv(this, oAuthClient, getString(R.string.client_env));
         xeeApi = new XeeApi(xeeEnv, BuildConfig.ENABLE_LOGS);
         xeeAuth = new XeeAuth(xeeEnv, BuildConfig.ENABLE_LOGS);
 

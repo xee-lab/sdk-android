@@ -116,7 +116,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
 
         // Build the retrofit interface and the Auth service
         val authRetrofit = Retrofit.Builder()
-                .baseUrl(String.format(Locale.FRANCE, ROUTE_BASE, env.environmentApi))
+                .baseUrl(String.format(Locale.FRANCE, ROUTE_BASE, env.environment))
                 .client(authClientBuilder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(CONVERTER_FACTORY)

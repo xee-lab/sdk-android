@@ -151,7 +151,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
                             })
                 }
             }
-            xeeEnv.context.startActivity(AuthenticationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environmentApi))
+            xeeEnv.context.startActivity(AuthenticationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environment))
         } else {
             logged = true
             connectionCallback.onSuccess()
@@ -189,7 +189,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
                         })
             }
         }
-        xeeEnv.context.startActivity(RegistrationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environmentApi))
+        xeeEnv.context.startActivity(RegistrationActivity.intent(xeeEnv.context, xeeEnv.oAuthClient, xeeEnv.environment))
     }
 
     /**

@@ -82,7 +82,7 @@ class ApiInterceptor constructor(private val xeeEnv: XeeEnv, private val storage
 
         // Build the retrofit interface and the API services
         val apiRetrofit = Retrofit.Builder()
-                .baseUrl(String.format(Locale.FRANCE, XeeAuth.ROUTE_BASE, xeeEnv.environmentApi))
+                .baseUrl(String.format(Locale.FRANCE, XeeAuth.ROUTE_BASE, xeeEnv.environment))
                 .client(apiClientBuilder.build())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())

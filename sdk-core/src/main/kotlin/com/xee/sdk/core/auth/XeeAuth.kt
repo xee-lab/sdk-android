@@ -49,7 +49,7 @@ class XeeAuth @JvmOverloads constructor(environment: XeeEnv, private val enableL
 
     companion object {
         const val TAG = "Xee"
-        const val ROUTE_BASE = "https://staging.xee.com/v4/"
+        const val ROUTE_BASE = "https://%s/"
         const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         const val DATE_FORMAT_WITH_MS = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 

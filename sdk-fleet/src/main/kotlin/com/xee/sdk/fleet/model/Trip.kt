@@ -39,7 +39,7 @@ data class Trip @JvmOverloads constructor (
         @SerializedName("endLocation") val endLocation: TripLocation? = null,
         @SerializedName("locations") private var locations: List<Location>? = null,
         @SerializedName("behaviors") val behaviors: List<Behavior>? = null,
-        @SerializedName("type") private var type: Int? = 0,
+        @SerializedName("type") val type: Int? = 0,
         @SerializedName("matter") val matter: String? = "",
         @SerializedName("customer") val customer: String? = "",
         @SerializedName("contactPerson") val contactPerson: String? = "",

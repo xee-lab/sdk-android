@@ -38,7 +38,13 @@ data class Trip @JvmOverloads constructor (
         @SerializedName("startLocation") val startLocation: TripLocation? = null,
         @SerializedName("endLocation") val endLocation: TripLocation? = null,
         @SerializedName("locations") private var locations: List<Location>? = null,
-        @SerializedName("behaviors") val behaviors: List<Behavior>? = null) : Parcelable {
+        @SerializedName("behaviors") val behaviors: List<Behavior>? = null,
+        @SerializedName("type") private var type: Int? = 0,
+        @SerializedName("matter") val matter: String? = "",
+        @SerializedName("customer") val customer: String? = "",
+        @SerializedName("contactPerson") val contactPerson: String? = "",
+        @SerializedName("additionalInformation") val additionalInformation: String? = ""
+        ) : Parcelable {
 
     fun getLocations(): List<Location>? {
         return locations
@@ -68,7 +74,12 @@ data class Trip @JvmOverloads constructor (
             source.readParcelable<TripLocation>(TripLocation::class.java.classLoader),
             source.readParcelable<TripLocation>(TripLocation::class.java.classLoader),
             source.createTypedArrayList(Location.CREATOR),
-            source.createTypedArrayList(Behavior.CREATOR)
+            source.createTypedArrayList(Behavior.CREATOR),
+            source.readValue(Long::class.java.classLoader) as Int?,
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -86,6 +97,11 @@ data class Trip @JvmOverloads constructor (
         writeParcelable(endLocation, 0)
         writeTypedList(locations)
         writeTypedList(behaviors)
+        writeValue(type)
+        writeString(matter)
+        writeString(customer)
+        writeString(contactPerson)
+        writeString(additionalInformation)
     }
 
     companion object {

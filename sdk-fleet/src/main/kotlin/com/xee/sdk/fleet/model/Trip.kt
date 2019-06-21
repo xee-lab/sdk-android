@@ -43,7 +43,8 @@ data class Trip @JvmOverloads constructor (
         @SerializedName("matter") val matter: String? = "",
         @SerializedName("customer") val customer: String? = "",
         @SerializedName("contactPerson") val contactPerson: String? = "",
-        @SerializedName("additionalInformation") val additionalInformation: String? = ""
+        @SerializedName("additionalInformation") val additionalInformation: String? = "",
+        @SerializedName("blocked") var blocked: Boolean? = false
         ) : Parcelable {
 
     fun getLocations(): List<Location>? {
@@ -79,7 +80,8 @@ data class Trip @JvmOverloads constructor (
             source.readString(),
             source.readString(),
             source.readString(),
-            source.readString()
+            source.readString(),
+            source.readBoolean()
     )
 
     override fun describeContents() = 0
@@ -102,6 +104,7 @@ data class Trip @JvmOverloads constructor (
         writeString(customer)
         writeString(contactPerson)
         writeString(additionalInformation)
+        writeBoolean(blocked)
     }
 
     companion object {
@@ -110,5 +113,21 @@ data class Trip @JvmOverloads constructor (
             override fun createFromParcel(source: Parcel): Trip = Trip(source)
             override fun newArray(size: Int): Array<Trip?> = arrayOfNulls(size)
         }
+    }
+}
+
+fun Parcel.writeBoolean(flag: Boolean?) {
+    when(flag) {
+        true -> writeInt(1)
+        false -> writeInt(0)
+        else -> writeInt(-1)
+    }
+}
+
+fun Parcel.readBoolean(): Boolean? {
+    return when(readInt()) {
+        1 -> true
+        0 -> false
+        else -> null
     }
 }

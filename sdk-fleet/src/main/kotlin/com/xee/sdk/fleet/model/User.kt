@@ -33,7 +33,8 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
                                           @SerializedName("role") var role: Role? = null,
                                           @SerializedName("loan") var loan: Loan? = null,
                                           @SerializedName("tags") var tags: List<Tag>? = null,
-                                          @SerializedName("nextChecking") var nextChecking: Date? = null) : Parcelable {
+                                          @SerializedName("nextChecking") var nextChecking: Date? = null,
+                                          @SerializedName("licenseValidityDate") var licenseValidityDate: Date? = null) : Parcelable {
     enum class Role {
         OWNER, SUPERVISOR, DRIVER, SUPPORT
     }
@@ -50,6 +51,7 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
             source.readValue(Int::class.java.classLoader)?.let { Role.values()[it as Int] },
             source.readParcelable<Loan>(Loan::class.java.classLoader),
             source.createTypedArrayList(Tag.CREATOR),
+            source.readSerializable() as Date?,
             source.readSerializable() as Date?
     )
 
@@ -64,6 +66,7 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
         writeParcelable(loan, 0)
         writeTypedList(tags)
         writeSerializable(nextChecking)
+        writeSerializable(licenseValidityDate)
     }
 
     companion object {

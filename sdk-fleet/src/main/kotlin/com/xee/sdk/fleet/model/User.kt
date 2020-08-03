@@ -34,7 +34,10 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
                                           @SerializedName("loan") var loan: Loan? = null,
                                           @SerializedName("tags") var tags: List<Tag>? = null,
                                           @SerializedName("nextChecking") var nextChecking: Date? = null,
-                                          @SerializedName("licenseValidityDate") var licenseValidityDate: Date? = null) : Parcelable {
+                                          @SerializedName("licenseValidityDate") var licenseValidityDate: Date? = null,
+                                          @SerializedName("nextCheckingNotification") var active: Boolean = false,
+                                          @SerializedName("licenseValidityDateNotification") var active: Boolean = false,
+                                          @SerializedName( "leftAt") var leftAt: String? = null) : Parcelable {
     enum class Role {
         OWNER, SUPERVISOR, DRIVER, SUPPORT
     }
@@ -52,7 +55,10 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
             source.readParcelable<Loan>(Loan::class.java.classLoader),
             source.createTypedArrayList(Tag.CREATOR),
             source.readSerializable() as Date?,
-            source.readSerializable() as Date?
+            source.readSerializable() as Date?,
+            1 == source.readInt(),
+            1 == source.readInt(),
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -67,6 +73,9 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
         writeTypedList(tags)
         writeSerializable(nextChecking)
         writeSerializable(licenseValidityDate)
+        writeInt((if (nextCheckingNotification) 1 else 0))
+        writeInt((if (licenseValidityDateNotification) 1 else 0))
+        writeString(leftAt)
     }
 
     companion object {

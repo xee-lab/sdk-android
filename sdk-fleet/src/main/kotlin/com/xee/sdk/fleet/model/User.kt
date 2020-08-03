@@ -35,8 +35,8 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
                                           @SerializedName("tags") var tags: List<Tag>? = null,
                                           @SerializedName("nextChecking") var nextChecking: Date? = null,
                                           @SerializedName("licenseValidityDate") var licenseValidityDate: Date? = null,
-                                          @SerializedName("nextCheckingNotification") var active: Boolean = false,
-                                          @SerializedName("licenseValidityDateNotification") var active: Boolean = false,
+                                          @SerializedName("nextCheckingNotification") var nextCheckingNotification: Boolean = false,
+                                          @SerializedName("licenseValidityDateNotification") var licenseValidityDateNotification: Boolean = false,
                                           @SerializedName( "leftAt") var leftAt: String? = null) : Parcelable {
     enum class Role {
         OWNER, SUPERVISOR, DRIVER, SUPPORT

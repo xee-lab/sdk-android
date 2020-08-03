@@ -37,6 +37,7 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
                                           @SerializedName("licenseValidityDate") var licenseValidityDate: Date? = null,
                                           @SerializedName("nextCheckingNotification") var nextCheckingNotification: Boolean = false,
                                           @SerializedName("licenseValidityDateNotification") var licenseValidityDateNotification: Boolean = false,
+                                          @SerializedName("tripsReminder") var tripsReminder: Boolean = false,
                                           @SerializedName( "leftAt") var leftAt: String? = null) : Parcelable {
     enum class Role {
         OWNER, SUPERVISOR, DRIVER, SUPPORT
@@ -58,6 +59,7 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
             source.readSerializable() as Date?,
             1 == source.readInt(),
             1 == source.readInt(),
+            1 == source.readInt(),
             source.readString()
     )
 
@@ -75,6 +77,7 @@ data class User @JvmOverloads constructor(@SerializedName("id") var id: String,
         writeSerializable(licenseValidityDate)
         writeInt((if (nextCheckingNotification) 1 else 0))
         writeInt((if (licenseValidityDateNotification) 1 else 0))
+        writeInt((if (tripsReminder) 1 else 0))
         writeString(leftAt)
     }
 
